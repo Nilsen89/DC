@@ -13,6 +13,8 @@ import javafx.util.Duration;
 
 public class GameLoop extends Application {
 	
+	ClockTimer ct = new ClockTimer();
+	
 	private Stage primalStage;
 	private Scene scene;
 	private Timeline timeline;
@@ -35,7 +37,8 @@ public class GameLoop extends Application {
 		
 		primalStage.setTitle(TITLE);
 		Pane paneContainer = new Pane();
-		
+		paneContainer.setPrefSize(800, 600);
+		paneContainer.getChildren().add(ct.getStackPane());
 		scene = new Scene(paneContainer);	
 		
 		primalStage.setScene(scene);
