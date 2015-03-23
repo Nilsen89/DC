@@ -50,6 +50,7 @@ public class GameLoop extends Application {
 		
 	}
 
+	// Time-line method
 	public void initTimeline() {
 		timeline = new Timeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
