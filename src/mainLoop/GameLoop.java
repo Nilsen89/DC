@@ -14,6 +14,7 @@ import javafx.util.Duration;
 public class GameLoop extends Application {
 	
 	private Stage primalStage;
+	private Scene scene;
 	private Timeline timeline;
 	
 	private final Duration oneFrameAmt = Duration.millis(1000/60);
@@ -35,7 +36,7 @@ public class GameLoop extends Application {
 		primalStage.setTitle(TITLE);
 		Pane paneContainer = new Pane();
 		
-		Scene scene = new Scene(paneContainer);	
+		scene = new Scene(paneContainer);	
 		
 		primalStage.setScene(scene);
 		primalStage.show();
