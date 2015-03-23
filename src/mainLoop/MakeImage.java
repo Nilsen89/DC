@@ -1,3 +1,4 @@
+package mainLoop;
 
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class MakeImage {
 			imageView = new ImageView(image);
 			fis.close();
 	
-		}catch (IOException e) {                   //gjør dette på tidligere øvinger
+		}catch (IOException e) {
 			System.out.println(e);
 		}
 	}

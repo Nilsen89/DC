@@ -35,10 +35,25 @@ public class ClockTimer {
 						seconds--;
 					} else {
 						seconds = 59;
-						minutes--;
+						if(minutes != 0) {
+							minutes--;
+						} else {
+							seconds = 0;
+							timeline.stop();
+						}
+					} if(seconds < 10 && minutes < 10) {
+						timer = String.format("%s%s:%s%s","0", minutes,"0",seconds);
+						clockText.setText(timer);
+					} else if(minutes < 10) {
+						timer = String.format("%s%s:%s","0", minutes,seconds);
+						clockText.setText(timer);
+					} else if(seconds < 10) {
+						timer = String.format("%s:%s%s", minutes,"0",seconds);
+						clockText.setText(timer);
+					} else {
+						timer = String.format(timerFormat, minutes, seconds);
+						clockText.setText(timer);
 					}
-					timer = String.format(timerFormat, minutes, seconds);
-					clockText.setText(timer);
 				}
 			});
 	
@@ -56,12 +71,14 @@ public class ClockTimer {
 	}
 
 	public void makeImage() {
-		
+		background = new MakeImage("C:\\Users\\Christoffer\\DC\\resource\\clockBg.jpg");
+		background.getImage().setScaleX(0.2);
+		background.getImage().setScaleY(0.2);
 	}
 	
 	public void makeStack() {
 		clockStack = new StackPane();
-		clockStack.getChildren().addAll(clockBg, clockText);
+		clockStack.getChildren().addAll(background.getImage(), clockText);
 	}
 	
 	public void initTimeline() {
