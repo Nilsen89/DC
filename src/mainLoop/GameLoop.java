@@ -6,17 +6,15 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameLoop extends Application {
 	
-	ClockTimer ct = new ClockTimer();
+	GameScene gameScene = new GameScene();
+	//ClockTimer ct = new ClockTimer(); // Image path IOExeption ERROR...
 	
 	private Stage primalStage;
-	private Scene scene;
 	private Timeline timeline;
 	
 	private final Duration oneFrameAmt = Duration.millis(1000/60);
@@ -35,25 +33,19 @@ public class GameLoop extends Application {
 	
 	public void initFrame() {
 		
-		primalStage.setTitle(TITLE);
-		Pane paneContainer = new Pane();
-		paneContainer.setPrefSize(800, 600);
-		paneContainer.getChildren().add(ct.getStackPane());
-		scene = new Scene(paneContainer);	
-		
-		primalStage.setScene(scene);
+		primalStage.setTitle(TITLE);	
+		primalStage.setScene(gameScene.getScene());
 		primalStage.show();
 	}
 	
 	private void render() {
-		
+		gameScene.reader();
 	}
 	
 	private void ticker() {
 		
 	}
 
-	// Time-line method
 	public void initTimeline() {
 		timeline = new Timeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
