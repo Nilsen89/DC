@@ -4,6 +4,4 @@ public class Gravity {
 	
 	public Gravity() {}
 	
-	
-	
 }

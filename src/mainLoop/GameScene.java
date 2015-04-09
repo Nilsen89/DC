@@ -3,7 +3,6 @@ package mainLoop;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-//import javafx.scene.shape.Rectangle; //FOR TESTING...
 import javafx.scene.shape.Rectangle;
 
 public class GameScene {
@@ -15,12 +14,11 @@ public class GameScene {
 	Scene scene = new Scene(paneContainer);
 	
 	
-	//TESTING...
 	
+	//TESTING...
 	Rectangle player;
-	
+	Rectangle ground;
 	//TESTING...
-	
 	
 	public GameScene() {
 		scene.setOnKeyPressed(inputReader.getInputKey());
@@ -29,7 +27,7 @@ public class GameScene {
 		//TESTING...
 		
 		player = new Rectangle(150,150);
-		Rectangle ground = new Rectangle(800,200);
+		ground = new Rectangle(800,200);
 		ground.setTranslateY(400);
 		player.setTranslateY(250);
 		player.setTranslateX(300);
@@ -53,11 +51,15 @@ public class GameScene {
 	public void reader() {
 		velocity.calculate();
 		
+		
 		//TESTING...
 		if(inputReader.getDuration()) {
 			player.setTranslateX(player.getTranslateX()+velocity.getSpeed());
 		} if(inputReader.getJump()) {
 			player.setTranslateY(player.getTranslateY()-2);
+		} 
+		if(!player.getBoundsInParent().intersects(ground.getBoundsInParent())) {			
+			player.setTranslateY(player.getTranslateY()+1);
 		}
 		
 		//TESTING...
