@@ -7,13 +7,11 @@ import javafx.scene.shape.Rectangle;
 
 public class GameScene {
 	
-	InputReader inputReader = new InputReader();
-	Velocity velocity = new Velocity(inputReader);
+	private InputReader inputReader = new InputReader();
+	private Velocity velocity = new Velocity(inputReader);
 	
-	Pane paneContainer = new Pane();
-	Scene scene = new Scene(paneContainer);
-	
-	
+	private Pane paneContainer = new Pane();
+	private Scene scene = new Scene(paneContainer);
 	
 	//TESTING...
 	Rectangle player;
@@ -22,6 +20,7 @@ public class GameScene {
 	
 	public GameScene() {
 		scene.setOnKeyPressed(inputReader.getInputKey());
+		scene.setOnKeyReleased(inputReader.getOutputKey());
 		paneContainer.setPrefSize(800, 600);
 		
 		//TESTING...
@@ -51,18 +50,7 @@ public class GameScene {
 	public void reader() {
 		velocity.calculate();
 		
-		
-		//TESTING...
-		if(inputReader.getDuration()) {
-			player.setTranslateX(player.getTranslateX()+velocity.getSpeed());
-		} if(inputReader.getJump()) {
-			player.setTranslateY(player.getTranslateY()-2);
-		} 
-		if(!player.getBoundsInParent().intersects(ground.getBoundsInParent())) {			
-			player.setTranslateY(player.getTranslateY()+1);
-		}
-		
-		//TESTING...
-	
+		player.setTranslateX(player.getTranslateX() + velocity.getSpeed());
+		player.setTranslateY(player.getTranslateY() - velocity.getJump());	
 	}
 }

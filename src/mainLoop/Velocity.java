@@ -1,31 +1,67 @@
 package mainLoop;
 
-import javafx.util.Duration;
+import java.util.Date;
 
 public class Velocity {
 	
-	Duration movementDuration;
-	InputReader inputReader;
-	long speed;
+	private InputReader inputReader;
+	private int moveSpeed = 0;
+	private int jumpSpeed = 0;
+	
+	Date lastDate = new Date();
+	Date newDate;
+	long doubleJumpIdle;
+	boolean jump;
 	
 	public Velocity(InputReader inputReader) {
 		this.inputReader = inputReader;
 	}
 	
+	public void calcuateTime() {
+		newDate = new Date();
+		doubleJumpIdle = lastDate.getTime() - newDate.getTime();
+		lastDate = newDate;
+	}
+	
 	public void calculate() {
-		speed = inputReader.getTimeCalc()*1; // temp-mod
-		if(inputReader.getDirection() == 'l') {			
-			speed *= -1;
+		if(inputReader.isLeft()) {
+			if(moveSpeed > -5) {
+				moveSpeed--;
+			}
+		} else if(inputReader.isRight()) {
+			if(moveSpeed < 5) {
+				moveSpeed++;
+			}
+		} else {
+			if(moveSpeed == 0) {}
+			else if(moveSpeed < 0) {
+				moveSpeed++;
+			} else if(moveSpeed > 0){
+				moveSpeed--;
+			}
+		} if(inputReader.isSpace()) {
+			calcuateTime();
+			if(doubleJumpIdle <  200) {	
+				jump = true;
+				if(jumpSpeed < 10) {
+					jumpSpeed++;
+				}
+			} else {
+				jumpSpeed = 0;
+				jump = false;
+			}
+		} else {
+			if (jumpSpeed > 0 && jumpSpeed != 0) {
+			jumpSpeed--;
+			}
 		}
-		movementDuration = Duration.millis(inputReader.getTimeCalc()*250); // temp-mod
 	}
 	
-	public long getSpeed() {
-		return speed;
+	public int getSpeed() {
+		return moveSpeed;
 	}
 	
-	public Duration getMovementDuration() {
-		return movementDuration;
+	public int getJump() {
+		return jumpSpeed;
 	}
-	
 }
